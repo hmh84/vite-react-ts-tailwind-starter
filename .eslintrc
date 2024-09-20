@@ -1,36 +1,90 @@
 {
-  "root": true,
-  "env": {
-    "browser": true,
-    "es2021": true,
-    "node": true
-  },
-  "extends": [
-    "eslint:recommended",
-    "plugin:react/recommended",
-    "plugin:@typescript-eslint/recommended",
-    "plugin:import/recommended",
-    "plugin:import/typescript",
-    "plugin:prettier/recommended",
-    "plugin:react-hooks/recommended",
-    "prettier"
-  ],
-  "overrides": [],
-  "parser": "@typescript-eslint/parser",
-  "settings": {
-    "import/resolver": {
-      "typescript": true
-    }
-  },
-  "plugins": ["unused-imports", "react", "@typescript-eslint", "import", "prettier"],
-  "rules": {
-    "import/default": 0,
-    "import/no-named-as-default-member": 0,
-    "import/no-unresolved": "warn",
-    "no-unused-vars": "off", // or "@typescript-eslint/no-unused-vars": "off",
-    "react/react-in-jsx-scope": "off",
-    "@typescript-eslint/ban-ts-comment": "off",
-    "unused-imports/no-unused-imports": "warn",
-    "react/prop-types": "off"
-  }
+	"root": true,
+	"env": {
+		"browser": true,
+		"es2021": true,
+		"node": true
+	},
+	"extends": [
+		"eslint:recommended",
+		"plugin:react/recommended",
+		"plugin:@typescript-eslint/recommended",
+		"plugin:import/recommended",
+		"plugin:import/typescript",
+		"plugin:prettier/recommended",
+		"plugin:react-hooks/recommended",
+		"prettier"
+	],
+	"overrides": [],
+	"parser": "@typescript-eslint/parser",
+	"settings": {
+		"react": {
+			"version": "detect"
+		},
+		"import/resolver": {
+			"typescript": true
+		}
+	},
+	"plugins": ["unused-imports", "react", "@typescript-eslint", "import", "prettier"],
+	"rules": {
+		"import/default": 0,
+		"import/no-named-as-default-member": 0,
+		"import/no-unresolved": "warn",
+		"import/order": [
+			"warn",
+			{
+				"newlines-between": "always",
+				"groups": [["builtin", "external"], ["internal"], ["parent", "sibling", "index"]],
+				"alphabetize": {
+					"order": "asc",
+					"caseInsensitive": true
+				}
+			}
+		],
+		"no-restricted-imports": [
+			"warn",
+			{
+				"patterns": [
+					{
+						"group": ["../*"],
+						"message": "Usage of relative parent imports is not allowed"
+					}
+				],
+				"paths": [
+					{
+						"name": ".",
+						"message": "Usage of local index imports is not allowed"
+					},
+					{
+						"name": "./index",
+						"message": "Import from the source file instead"
+					},
+					{
+						"name": "react",
+						"importNames": ["default"],
+						"message": "'import React' is not needed due to the new JSX transform in React 17. If you need a named export, use 'import { Something } from \"react\"'"
+					}
+				]
+			}
+		],
+		"no-unused-vars": "warn", // or "@typescript-eslint/no-unused-vars": "off",
+		"react/react-in-jsx-scope": "off",
+		"@typescript-eslint/ban-ts-comment": "off",
+		"unused-imports/no-unused-imports": "warn",
+		"react/prop-types": "off",
+		"no-console": ["warn", { "allow": ["warn", "error"] }],
+		"no-alert": "warn",
+		"no-var": "error",
+		"react/jsx-key": [
+			"error",
+			{
+				"checkFragmentShorthand": true,
+				"checkKeyMustBeforeSpread": true,
+				"warnOnDuplicates": true
+			}
+		],
+		"react/jsx-fragments": "warn",
+		"react/jsx-no-useless-fragment": ["warn", { "allowExpressions": true }],
+		"react/iframe-missing-sandbox": "warn"
+	}
 }
